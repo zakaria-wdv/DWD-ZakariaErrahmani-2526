@@ -33,5 +33,5 @@ for (let i = 0; i < passwords.length; i++) {
     }
 }
 
-console.log("Ok: " + welOk.join(", "));
-console.log("Niet ok: " + nietOk.join(", "));
+console.log("%cOk: " + welOk.join(", "), "color: darkgreen");
+console.log("%cNiet ok: " + nietOk.join(", "), "color: darkred");

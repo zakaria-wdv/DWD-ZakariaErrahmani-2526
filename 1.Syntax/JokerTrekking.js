@@ -14,12 +14,12 @@ function aantalGelijkeCijfers(a, b) {
     return 0;
 }
 
-console.log("// trekking");
+console.log("%c// trekking", "color: violet");
 const getrokkenGetal = genereerGetal();
-console.log("getrokken getal: " + getrokkenGetal);
+console.log("%cgetrokken getal: " + getrokkenGetal, "color: yellow");
 console.log("");
 
-console.log("// gokken");
+console.log("%c// gokken", "color: violet");
 console.log("aantal iteraties: " + AANTAL_ITERATIES);
 console.log("");
 
@@ -37,7 +37,7 @@ for (let i = 0; i < AANTAL_ITERATIES; i++) {
     else { juist4++; totaleWinst += 500; }
 }
 
-console.log("// resultaten");
+console.log("%c// resultaten", "color: violet");
 console.log("0 juist: " + juist0);
 console.log("1 juist: " + juist1);
 console.log("2 juist: " + juist2);
@@ -46,4 +46,5 @@ console.log("4 juist: " + juist4);
 console.log("");
 
 const gemiddeldeWinst = totaleWinst / AANTAL_ITERATIES;
-console.log("gemiddelde winst: €" + gemiddeldeWinst.toFixed(3));
+console.log("%cgemiddelde winst: €" + gemiddeldeWinst.toFixed(3),
+    "color: dark-yellow; font-size: 18px; background-color: white; padding: 10px");
