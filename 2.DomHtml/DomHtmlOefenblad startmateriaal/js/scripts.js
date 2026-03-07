@@ -2,8 +2,12 @@
 {
 	console.log('\n%c=== querySelector ===', 'color: #0c0');
 	const hdrTekoop = document.querySelector('#ex1-html h3');
-   // ... vul hier aan
+   console.log(hdrTekoop)
 
+   const lblVaas = document.querySelector('#ex1-html #vaas');
+   console.log(lblVaas)
+
+   const hdrkenmerken = document.querySelector('#ex1-html kenmerken')
 }
 
 // === Oefening 2: querySelectorAll() ===
