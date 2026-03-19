@@ -82,7 +82,9 @@
 // === Oefening 4: innerHTML en innerText ===
 {
   // DOBBELSTEEN OEFENING
-  const spnDice = document.querySelector("#ex4 .dice-value");
+
+  
+  const spnDice = document.querySelector("#ex4 #btn-dice");
 
   function spnDiceClickHandler() {
     const getal = Math.floor(Math.random() * 6) + 1;
@@ -92,7 +94,6 @@
   function spnDiceMouseoutHandler() {
     spnDice.innerText = "?";
   }
-
   spnDice.addEventListener("click", spnDiceClickHandler);
   spnDice.addEventListener("mouseout", spnDiceMouseoutHandler);
 
