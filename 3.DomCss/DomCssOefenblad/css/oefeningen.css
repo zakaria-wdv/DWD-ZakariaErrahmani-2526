@@ -1,0 +1,131 @@
+/**
+ * Oefeningen – opmaak voor demo's en oefenblokken
+ */
+
+/* Oefening 1: style property */
+#ex1 .html {
+   .ex1-controls {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+      gap: 0.5rem 1rem;
+      align-items: center;
+   }
+
+   .ex1-controls .ex1-row {
+      display: contents;
+   }
+
+   .ex1-controls .ex1-row > label:first-child {
+      min-width: 6em;
+   }
+
+   #ex1-txt {
+      background-color: #ddd;
+      border: 1px solid #444;
+      padding: 10px;
+   }
+
+   [type=color] {
+      padding: 2px;
+   }
+
+   .slider {
+      align-items: center;
+      display: flex;
+      gap: 0.5rem;
+   }
+}
+
+/* Oefening 2: classList (twee deeloefeningen) */
+#ex2 .html {
+   img.bordered {
+      border: 4px solid #333;
+      border-radius: 8px;
+   }
+
+   .buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1em 0;
+   }
+
+   .buttons button {
+      padding: 0.35rem 0.75rem;
+   }
+
+   .buttons .active {
+      background-color: #000;
+      color: #fff;
+   }
+
+   img.stijl1 {
+      border: 4px solid #333;
+      border-radius: 8px;
+   }
+
+   img.stijl2 {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+   }
+
+   img.stijl3 {
+      filter: sepia(0.8);
+   }
+}
+
+/* Oefening 3: dataset (pralines) */
+#ex3 .html {
+   .ex3-pralines {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      padding: 0;
+   }
+
+   .ex3-pralines li {
+      cursor: pointer;
+      width: 120px;
+   }
+
+   .ex3-pralines img {
+      display: block;
+      max-width: 100%;
+      transition: filter 0.2s;
+   }
+
+   .ex3-pralines li.selected img {
+      filter: brightness(0.9);
+   }
+
+   .ex3-info {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.25rem 2rem;
+      align-items: baseline;
+   }
+
+   .ex3-info dt {
+      font-weight: bold;
+   }
+
+   .ex3-info dd {
+      margin: 0;
+   }
+}
+
+/* Oefening 4: rekeningnummer validator */
+#ex4 .html {
+   .flex-row {
+      display: flex;
+      gap: 0.5em;
+   }
+   #btnWis {
+      background-color: transparent;
+      border-color: transparent;
+      margin-top: 0.25em;
+      padding: 5px;
+   }
+   /* vul hier aan */
+}
+
