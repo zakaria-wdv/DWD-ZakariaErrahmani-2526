@@ -4,6 +4,14 @@ import globals from 'globals';
 export default [
 	js.configs.recommended,
 	{
+		// Projectbestanden zijn gewone browser-scripts (geen ES-modules),
+		// zodat /* global */ en /* exported */ commentaren correct werken.
+		files: ['project/js/*.js'],
+		languageOptions: {
+			sourceType: 'script'
+		}
+	},
+	{
 		files: ['**/*.js', '**/*.jsx'],
 		languageOptions: {
 			ecmaVersion: 'latest',

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="nl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Soundboard</title>
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <body>
+      <!-- Paginakoptekst met titel en volumeregelaar -->
+      <header class="site-header">
+         <h1 class="site-title">&#127925; Soundboard</h1>
+         <div class="volume-control">
+            <label class="volume-label" for="volume">&#128266;</label>
+            <input
+               type="range"
+               id="volume"
+               class="volume-slider"
+               min="0"
+               max="1"
+               step="0.05"
+               value="1"
+            >
+         </div>
+      </header>
+
+      <main class="main-layout">
+
+         <!-- Linker paneel: zoeken en resultaten -->
+         <section class="search-panel" id="search-panel">
+            <h2 class="panel-title">Zoeken</h2>
+
+            <form class="search-form" id="search-form" novalidate>
+               <input
+                  type="search"
+                  id="search-input"
+                  class="search-input"
+                  placeholder="bijv. rain, thunder, applause..."
+                  autocomplete="off"
+               >
+               <button type="submit" id="search-button" class="btn btn--primary">
+                  Zoeken
+               </button>
+            </form>
+
+            <!-- Statusregel: laden, fout of leeg -->
+            <p class="status-message" id="search-status" aria-live="polite"></p>
+
+            <!-- Zoekresultaten worden hier door JS ingevoegd -->
+            <ul class="sound-list" id="results"></ul>
+         </section>
+
+         <!-- Rechter paneel: opgeslagen dashboard-knoppen -->
+         <section class="dashboard-panel" id="dashboard">
+            <h2 class="panel-title">Mijn dashboard</h2>
+
+            <!-- Zichtbaar zolang het dashboard leeg is -->
+            <p class="dashboard-empty" id="dashboard-empty">
+               Nog geen geluiden opgeslagen.<br>
+               Klik op &#9733; bij een zoekresultaat om het toe te voegen.
+            </p>
+
+            <!-- Dashboard-knoppen worden hier door JS ingevoegd -->
+            <ul class="sound-list" id="dashboard-list"></ul>
+         </section>
+
+      </main>
+
+      <!-- Scripts laden in volgorde: config eerst, daarna modules, dan app -->
+      <script src="js/config.js"></script>
+      <script src="js/api.js"></script>
+      <script src="js/dashboard.js"></script>
+      <script src="js/app.js"></script>
+   </body>
+</html>

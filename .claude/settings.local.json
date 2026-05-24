@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:rogiervdl.github.io)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
+    ]
+  }
+}
