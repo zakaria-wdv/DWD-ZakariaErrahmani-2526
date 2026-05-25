@@ -1,0 +1,354 @@
+/* ==========================================================================
+   Soundboard — stijlblad
+   Structuur: custom properties → reset → layout → componenten → hulpklassen
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Custom properties (kleuren, maten, schaduwen)
+   -------------------------------------------------------------------------- */
+
+:root {
+   --color-bg: #0f1117;
+   --color-surface: #1a1d27;
+   --color-surface-alt: #22263a;
+   --color-border: #2e3250;
+   --color-accent: #5b7cf6;
+   --color-accent-hover: #7b96ff;
+   --color-playing: #22c55e;
+   --color-playing-bg: #0f2a1a;
+   --color-text: #e2e8f0;
+   --color-text-muted: #8892aa;
+   --color-danger: #ef4444;
+   --color-fav: #facc15;
+   --radius: 10px;
+   --radius-sm: 6px;
+   --shadow: 0 2px 12px rgb(0 0 0 / 40%);
+   --transition: 150ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   Reset en basisstijlen
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+body {
+   background-color: var(--color-bg);
+   color: var(--color-text);
+   font-family: system-ui, sans-serif;
+   font-size: 1rem;
+   line-height: 1.5;
+   min-height: 100vh;
+}
+
+ul {
+   list-style: none;
+}
+
+button {
+   cursor: pointer;
+   font-family: inherit;
+   font-size: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   Paginakoptekst
+   -------------------------------------------------------------------------- */
+
+.site-header {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 1rem;
+   padding: 1rem 1.5rem;
+   background-color: var(--color-surface);
+   border-bottom: 1px solid var(--color-border);
+   position: sticky;
+   top: 0;
+   z-index: 10;
+}
+
+.site-title {
+   font-size: 1.4rem;
+   font-weight: 700;
+   letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Volumeregelaar (uitbreiding)
+   -------------------------------------------------------------------------- */
+
+.volume-control {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+.volume-label {
+   font-size: 1.2rem;
+   user-select: none;
+}
+
+.volume-slider {
+   width: 120px;
+   accent-color: var(--color-accent);
+   cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Hoofdlayout: twee kolommen naast elkaar op brede schermen
+   -------------------------------------------------------------------------- */
+
+.main-layout {
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 1.5rem;
+   padding: 1.5rem;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+@media (width >= 768px) {
+
+   .main-layout {
+      grid-template-columns: 1fr 1fr;
+   }
+}
+
+/* --------------------------------------------------------------------------
+   Panelen (zoeken + dashboard)
+   -------------------------------------------------------------------------- */
+
+.search-panel,
+.dashboard-panel {
+   background-color: var(--color-surface);
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius);
+   padding: 1.25rem;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+
+.panel-title {
+   font-size: 1rem;
+   font-weight: 600;
+   text-transform: uppercase;
+   letter-spacing: 0.08em;
+   color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Zoekformulier
+   -------------------------------------------------------------------------- */
+
+.search-form {
+   display: flex;
+   gap: 0.5rem;
+}
+
+.search-input {
+   flex: 1;
+   padding: 0.55rem 0.85rem;
+   background-color: var(--color-surface-alt);
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-sm);
+   color: var(--color-text);
+   font-size: 0.95rem;
+   outline: none;
+   transition: border-color var(--transition);
+}
+
+.search-input:focus {
+   border-color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Knoppen
+   -------------------------------------------------------------------------- */
+
+.btn {
+   padding: 0.55rem 1rem;
+   border: none;
+   border-radius: var(--radius-sm);
+   font-weight: 600;
+   transition: background-color var(--transition), opacity var(--transition);
+}
+
+.btn--primary {
+   background-color: var(--color-accent);
+   color: #fff;
+}
+
+.btn--primary:hover:not(:disabled) {
+   background-color: var(--color-accent-hover);
+}
+
+.btn--primary:disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Statusbericht (laden / fout / info)
+   -------------------------------------------------------------------------- */
+
+.status-message {
+   font-size: 0.9rem;
+   color: var(--color-text-muted);
+   min-height: 1.4em;
+}
+
+.status-message--error {
+   color: var(--color-danger);
+}
+
+/* --------------------------------------------------------------------------
+   Geluid-lijst (gedeeld door resultaten en dashboard)
+   -------------------------------------------------------------------------- */
+
+.sound-list {
+   display: flex;
+   flex-direction: column;
+   gap: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Geluidkaart: container per geluid
+   -------------------------------------------------------------------------- */
+
+.sound-card {
+   display: flex;
+   align-items: stretch;
+   background-color: var(--color-surface-alt);
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-sm);
+   overflow: hidden;
+   transition: border-color var(--transition);
+}
+
+/* Kaart oplichten als het geluid speelt */
+
+.sound-card.is-playing {
+   border-color: var(--color-playing);
+   background-color: var(--color-playing-bg);
+}
+
+/* --------------------------------------------------------------------------
+   Afspeel-knop (het grote, klikbare deel van de kaart)
+   -------------------------------------------------------------------------- */
+
+.play-btn {
+   flex: 1;
+   display: grid;
+   grid-template-columns: 72px 1fr;
+   align-items: center;
+   gap: 0.75rem;
+   padding: 0.6rem;
+   background: none;
+   border: none;
+   color: var(--color-text);
+   text-align: left;
+   transition: background-color var(--transition);
+}
+
+.play-btn:hover {
+   background-color: rgb(91 124 246 / 8%);
+}
+
+.sound-card.is-playing .play-btn {
+   color: var(--color-playing);
+}
+
+/* Klikken op de afbeelding of tekst binnen de afspeelknop landen op de knop zelf.
+   Zo werkt event delegation: e.target is altijd .play-btn, nooit een kind. */
+
+.play-btn > * {
+   pointer-events: none;
+}
+
+/* Waveform-afbeelding */
+
+.waveform-img {
+   width: 72px;
+   height: 40px;
+   object-fit: cover;
+   border-radius: 4px;
+   background-color: var(--color-border);
+   display: block;
+}
+
+/* Tekst in de kaart */
+
+.sound-info {
+   display: flex;
+   flex-direction: column;
+   gap: 0.1rem;
+   overflow: hidden;
+}
+
+.sound-name {
+   font-size: 0.9rem;
+   font-weight: 600;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.sound-meta {
+   font-size: 0.78rem;
+   color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Icoon-knoppen (favoriet ☆ en verwijderen ✕)
+   -------------------------------------------------------------------------- */
+
+.icon-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 2.5rem;
+   background: none;
+   border: none;
+   border-left: 1px solid var(--color-border);
+   color: var(--color-text-muted);
+   font-size: 1.1rem;
+   transition: color var(--transition), background-color var(--transition);
+   flex-shrink: 0;
+}
+
+.icon-btn:hover {
+   color: var(--color-text);
+   background-color: var(--color-surface);
+}
+
+.icon-btn--fav:hover {
+   color: var(--color-fav);
+}
+
+.icon-btn--remove:hover {
+   color: var(--color-danger);
+}
+
+/* --------------------------------------------------------------------------
+   Leeg-dashboard bericht
+   -------------------------------------------------------------------------- */
+
+.dashboard-empty {
+   font-size: 0.9rem;
+   color: var(--color-text-muted);
+   line-height: 1.7;
+}
+
+/* Verberg het bericht als de lijst gevuld is */
+
+.dashboard-empty.is-hidden {
+   display: none;
+}
