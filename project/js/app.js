@@ -3,7 +3,7 @@
    Volgorde: declaraties → functies → event handlers → events koppelen → init
    ========================================================================== */
 
-/* global searchSounds, saveToDashboard, loadDashboard */
+/* global searchSounds, saveToDashboard, loadDashboard, removeFromDashboard, dashboardList */
 
 /* --------------------------------------------------------------------------
    Constanten
@@ -142,6 +142,14 @@ const handleSearch = async(e) => {
       return;
    }
 
+   // Stop het geluid als het uit de resultatenlijst speelt (die gaat geleegd worden).
+   // contains() controleert of activeButton een afstammeling is van resultsList.
+   if (activeButton && resultsList.contains(activeButton)) {
+      audio.pause();
+      activeButton.parentNode.classList.remove('is-playing');
+      activeButton = null;
+   }
+
    // Toon laadmelding en blokkeer de knop om dubbel zoeken te voorkomen
    setStatus('Bezig met zoeken...');
    searchButton.disabled = true;
@@ -190,6 +198,28 @@ const handleResultsClick = (e) => {
    }
 };
 
+// Verwerkt alle klikken op het dashboard via event delegation.
+const handleDashboardClick = (e) => {
+   // Klik op de verwijderknop (✕) → geluid van het dashboard verwijderen
+   if (e.target.classList.contains('icon-btn--remove')) {
+      const card = e.target.parentNode;
+
+      // Stop het geluid als juist dit dashboard-item aan het spelen is
+      if (activeButton && activeButton.parentNode === card) {
+         audio.pause();
+         activeButton = null;
+      }
+
+      removeFromDashboard(card.dataset.id);
+      return;
+   }
+
+   // Klik op de afspeelknop → geluid afspelen of stoppen
+   if (e.target.classList.contains('play-btn')) {
+      togglePlay(e.target);
+   }
+};
+
 // Stelt het volume van het Audio-object in op de waarde van de slider.
 const handleVolumeChange = () => {
    // parseFloat zet de string-waarde van de slider om naar een getal (0.0 – 1.0)
@@ -215,6 +245,9 @@ searchForm.addEventListener('submit', handleSearch);
 
 // Eén listener op de volledige lijst vangt alle klikken op (event delegation)
 resultsList.addEventListener('click', handleResultsClick);
+
+// Zelfde patroon voor het dashboard: spelen en verwijderen via één listener
+dashboardList.addEventListener('click', handleDashboardClick);
 
 // Volumeslider: 'input' vuurt bij elke beweging, niet pas bij loslaten
 volumeSlider.addEventListener('input', handleVolumeChange);
