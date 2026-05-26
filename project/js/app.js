@@ -4,6 +4,7 @@
    ========================================================================== */
 
 /* global searchSounds, saveToDashboard, loadDashboard, removeFromDashboard, dashboardList */
+/* global addToHistory, loadHistory, clearHistory, historyList, historyClearBtn */
 
 /* --------------------------------------------------------------------------
    Constanten
@@ -163,6 +164,9 @@ const handleSearch = async(e) => {
       } else {
          setStatus('');
          renderResults(sounds);
+
+         // Voeg de zoekterm toe aan de geschiedenis na een succesvolle zoekopdracht
+         addToHistory(query);
       }
    } catch (error) {
       setStatus(`Fout bij ophalen: ${error.message}`, true);
@@ -220,6 +224,15 @@ const handleDashboardClick = (e) => {
    }
 };
 
+// Verwerkt klikken op de zoekgeschiedenislijst via event delegation.
+// Klik op een geschiedenis-item vult het zoekveld en voert de zoekopdracht opnieuw uit.
+const handleHistoryClick = (e) => {
+   if (e.target.classList.contains('history-item')) {
+      searchInput.value = e.target.textContent;
+      searchForm.dispatchEvent(new Event('submit'));
+   }
+};
+
 // Stelt het volume van het Audio-object in op de waarde van de slider.
 const handleVolumeChange = () => {
    // parseFloat zet de string-waarde van de slider om naar een getal (0.0 – 1.0)
@@ -249,6 +262,12 @@ resultsList.addEventListener('click', handleResultsClick);
 // Zelfde patroon voor het dashboard: spelen en verwijderen via één listener
 dashboardList.addEventListener('click', handleDashboardClick);
 
+// Geschiedenis-lijst: herklik op een item voert de zoekopdracht opnieuw uit
+historyList.addEventListener('click', handleHistoryClick);
+
+// Wis-knop: verwijdert de volledige zoekgeschiedenis
+historyClearBtn.addEventListener('click', clearHistory);
+
 // Volumeslider: 'input' vuurt bij elke beweging, niet pas bij loslaten
 volumeSlider.addEventListener('input', handleVolumeChange);
 
@@ -261,3 +280,6 @@ audio.addEventListener('ended', handleAudioEnded);
 
 // Laad opgeslagen dashboard-knoppen vanuit localStorage bij het opstarten van de app
 loadDashboard();
+
+// Laad opgeslagen zoekgeschiedenis vanuit localStorage bij het opstarten van de app
+loadHistory();
